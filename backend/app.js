@@ -8,7 +8,7 @@ const errorMiddleware = require("./middlewares/error");
 const post = require("./routes/postRoute");
 const user = require("./routes/userRoute");
 
-app.use(cors({origin:"http://localhost:3000",credentials: true}));
+app.use(cors({origin:"https://blogapp-frontend-pa49.onrender.com",credentials: true}));
 app.use(express.json());
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
