@@ -2,7 +2,7 @@ import toast from "react-hot-toast"
 import axios from "axios";
 
 const handleBlogEdit = async (navigate,setLoading,details,id)=>{
-    const response = await axios.put(`http://localhost:4000/api/v1/post/${id}`,details,{
+    const response = await axios.put(`https://blogapp-backend-3210.onrender.com/api/v1/post/${id}`,details,{
         withCredentials: true
       });
     if(response.data.success===true){

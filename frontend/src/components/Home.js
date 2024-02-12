@@ -14,7 +14,7 @@ export default function Home({url}) {
     const [posts, setPosts] = useState([])
     useEffect(() => {
         const fetchPosts = async () => {
-            const response = await fetch(`http://localhost:4000/api/v1/${url}`, {
+            const response = await fetch(`https://blogapp-backend-3210.onrender.com/api/v1/${url}`, {
                 credentials: 'include'
             });
             const json = await response.json()
