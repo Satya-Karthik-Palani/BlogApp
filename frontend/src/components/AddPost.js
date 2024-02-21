@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
 import { useNavigate} from 'react-router-dom';
 import handleBlogPost from '../utils/handleBlogPost';
-import { TailSpin } from "react-loader-spinner";
 import Cookies from 'js-cookie';
 import { DEFAULT_BLOG_IMAGE } from '../utils/constants';
 import axios from 'axios';
+import Backdrop from '@mui/material/Backdrop';
+import CircularProgress from '@mui/material/CircularProgress';
+
 export default function AddPost() {
     const navigate = useNavigate();
     const [image, setImage] = useState(null)
@@ -56,7 +58,9 @@ export default function AddPost() {
                 <input onChange={(e)=>setTitle(e.target.value)} placeholder='Title of the Blog' type='text' className='m-2 p-3 border border-black rounded-lg'/>
                 <textarea onChange={(e)=>setDescription(e.target.value)} placeholder='Description about the blog' type="text" className='m-2 p-3 border border-black rounded-lg'/>
                 <button onClick={onSubmitHandler} className='p-4 m-5 bg-[#9ed5cb] text-[#445045] font-bold rounded-lg hover:text-[#9ed5cb] hover:bg-[#445045]'>Submit</button>
-                {loading && (<TailSpin/>)}
+                {loading && (<Backdrop sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }} open>
+                              <CircularProgress color="inherit" />
+                            </Backdrop>)}
             </div> 
         </div>
       : <div>Please Login to add post</div>}

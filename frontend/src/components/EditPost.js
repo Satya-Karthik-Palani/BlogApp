@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react'
 import { useNavigate,useParams } from 'react-router-dom';
-import { TailSpin } from "react-loader-spinner";
+import Backdrop from '@mui/material/Backdrop';
+import CircularProgress from '@mui/material/CircularProgress';
 import handleBlogEdit from "../utils/handleBlogEdit"
 import postContext from '../utils/postContext';
 import axios from 'axios';
@@ -61,7 +62,9 @@ export default function EditPost() {
                 <input onChange={(e)=>setTitle(e.target.value)} defaultValue={post.title} placeholder='Title of the Blog' type='text' className='m-2 p-3 border border-black rounded-lg'/>
                 <textarea onChange={(e)=>setDescription(e.target.value)} defaultValue={post.description} placeholder='Description about the blog' type="text" className='m-2 p-3 border border-black rounded-lg'/>
                 <button onClick={onEditHandler} className='p-4 m-5 bg-[#9ed5cb] text-[#445045] font-bold rounded-lg hover:text-[#9ed5cb] hover:bg-[#445045]'>Edit Post</button>
-                {loading && (<TailSpin/>)}
+                {loading && (<Backdrop sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }} open>
+                              <CircularProgress color="inherit" />
+                            </Backdrop>)}
             </div>
         </div>
     </>
