@@ -10,12 +10,14 @@ const handleSignIn = async(details,navigate)=>{
             toast.success("Successfully Logged in");
             Cookies.set("isUserLoggedIn", true);
             navigate("/");
-        } else {
-            toast.error(response.data.message);
         }
     } catch (error) {
-        toast.error("An error occurred. Please try again later.");
-        console.error("Error:", error);
+        if(error?.response?.data?.message){
+            toast.error(error.response.data.message);
+        }
+        else{
+            toast.error("An error occurred. Please try again later.");
+        }
     }
     
 }

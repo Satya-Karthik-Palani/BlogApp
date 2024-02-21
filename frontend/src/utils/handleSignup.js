@@ -5,18 +5,19 @@ import Cookies from 'js-cookie'
 const handleSignup = async(details,navigate)=>{
     try{
         const response = await axios.post("https://blogapp-backend-3210.onrender.com/api/v1/register",details,{withCredentials:true});
+        console.log(response.data.message);
         if(response.data.success===true){
             toast.success(response.data.message);
             Cookies.set("isUserLoggedIn",true);
             navigate("/");
         }
-        else{
-            console.log(reponse.data.message);
-            toast.error(response.data.message);
-        }
     }catch (error) {
-        toast.error("An error occurred. Please try again later.");
-        console.error("Error:", error);
+        if(error?.response?.data?.message){
+            toast.error(error.response.data.message);
+        }
+        else{
+            toast.error("An error occurred. Please try again later.");
+        }
     }
 
 }
