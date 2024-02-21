@@ -11,8 +11,7 @@ const postSchema = mongoose.Schema({
     },
     imageurl: {
         type:String,
-    }
-    ,
+    },
     user: {
         type: mongoose.Schema.ObjectId,
         ref: "User",
