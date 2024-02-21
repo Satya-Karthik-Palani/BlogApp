@@ -9,7 +9,7 @@ import {CLOUDINARY_URL, DEFAULT_BLOG_IMAGE} from "../utils/constants";
 
 export default function EditPost() {
     const navigate = useNavigate();
-    const {post,setPost} = useContext(postContext);
+    const {post} = useContext(postContext);
     const [loading,setLoading] = useState(false);
     const [title,setTitle] = useState(post.title);
     const [image, setImage] = useState(null)

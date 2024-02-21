@@ -1,8 +1,9 @@
 import toast from "react-hot-toast"
 import axios from "axios";
+import { BACKEND_URL } from "./constants";
 
 const handleBlogEdit = async (navigate,setLoading,details,id)=>{
-    const response = await axios.put(`https://blogapp-backend-3210.onrender.com/api/v1/post/${id}`,details,{
+    const response = await axios.put(`${BACKEND_URL}/api/v1/post/${id}`,details,{
         withCredentials: true
       });
     if(response.data.success===true){

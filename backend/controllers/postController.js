@@ -4,7 +4,7 @@ const ErrorHandler = require("../utils/errorhandler");
 
 exports.getAllPosts = catchAsyncErrors(async(req,res)=>{
     const postscount = await Post.countDocuments();
-    const posts = await Post.find();
+    const posts = await Post.find().sort({ createdAt: -1 });
     res.status(200).json({success:true,posts,postscount});
 })
 
@@ -45,7 +45,7 @@ exports.deletePost = catchAsyncErrors(async(req,res)=>{
 })
 
 exports.getMyPosts = catchAsyncErrors(async(req,res)=>{
-    const posts = await Post.find({user:req.user});
+    const posts = await Post.find({user:req.user}).sort({ createdAt: -1 });
     const postscount = await Post.find({user:req.user}).countDocuments();
     res.status(200).json({success:true,posts,postscount});
 })

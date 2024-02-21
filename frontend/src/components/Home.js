@@ -6,15 +6,16 @@ import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 import handleBlogDelete from '../utils/handleBlogDelete';
 import postContext from '../utils/postContext';
-import { CLOUDINARY_URL, DEFAULT_BLOG_IMAGE } from '../utils/constants';
+import { BACKEND_URL, CLOUDINARY_URL, DEFAULT_BLOG_IMAGE } from '../utils/constants';
+import {useNavigate} from "react-router-dom"
 
 export default function Home({url}) {
-    const {post,setPost} = useContext(postContext);
-
+    const {setPost,setCurrpost} = useContext(postContext);
+    const navigate = useNavigate();
     const [posts, setPosts] = useState([])
     useEffect(() => {
         const fetchPosts = async () => {
-            const response = await fetch(`https://blogapp-backend-3210.onrender.com/api/v1/${url}`, {
+            const response = await fetch(`${BACKEND_URL}/api/v1/${url}`, {
                 credentials: 'include'
             });
             const json = await response.json()
@@ -22,6 +23,11 @@ export default function Home({url}) {
         }
         fetchPosts();
     }, [url,posts])
+
+    const onClickHandler=(p)=>{
+        setCurrpost(p);
+        navigate(`/post/${p._id}`);
+    }
     return (
         <>
             {!Cookies.get('isUserLoggedIn') && <h1>Not logged In</h1>}
@@ -31,10 +37,12 @@ export default function Home({url}) {
                         posts.map((p) => (
                             <div
                                 key={p._id}
-                                className="bg-gray-300 p-5 m-5 rounded-lg w-6/12 flex display-flex justify-between">
-                                <img src={p.imageurl === null?DEFAULT_BLOG_IMAGE : `${CLOUDINARY_URL}${p.imageurl}.png` } className='w-40 h-40'/>
-                                <h1 className={`font-bold ${url==="posts/me" ? 'flex justify-center pb-3':''}`}>{p.title}</h1>
-                                <h3>{p.description}</h3>
+                                className="bg-gray-300 p-5 m-5 rounded-lg w-6/12 flex justify-between">
+                                <div className={url==="posts/me" ? "w-3/4 flex justify-between" : "w-full flex justify-between"} onClick={()=>onClickHandler(p)}>
+                                    <img src={p.imageurl === null?DEFAULT_BLOG_IMAGE : `${CLOUDINARY_URL}${p.imageurl}.png` } className='w-40 h-40'/>
+                                    <h1 className={`font-bold ${url==="posts/me" ? 'flex justify-center pb-3':''}`}>{p.title}</h1>
+                                    <h3>{p.description}</h3>
+                                </div>
                                 {url==="posts/me" && <Link to={`/editpost/${p._id}`}><FontAwesomeIcon icon={faEdit} size="lg" color="blue" onClick={()=>setPost(p)}/></Link>}
                                 {url==="posts/me" && <FontAwesomeIcon icon={faTrash} onClick={() => handleBlogDelete(p._id)} size="lg" className="text-red-500 cursor-pointer"/>}
                             </div>

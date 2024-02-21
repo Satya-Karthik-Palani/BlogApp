@@ -1,11 +1,12 @@
 import axios from "axios"
 import Cookies from "js-cookie";
 import toast from "react-hot-toast"
+import { BACKEND_URL } from "./constants";
 
 
 const handleSignIn = async(details,navigate)=>{
     try {
-        const response = await axios.post("https://blogapp-backend-3210.onrender.com/api/v1/login", details, { withCredentials: true });
+        const response = await axios.post(`${BACKEND_URL}/api/v1/login`, details, { withCredentials: true });
         if (response.data.success) {
             toast.success("Successfully Logged in");
             Cookies.set("isUserLoggedIn", true);
