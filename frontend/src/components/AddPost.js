@@ -56,7 +56,7 @@ export default function AddPost() {
                 <input onChange={(e)=>setTitle(e.target.value)} placeholder='Title of the Blog' type='text' className='m-2 p-3 border border-black rounded-lg'/>
                 <textarea onChange={(e)=>setDescription(e.target.value)} placeholder='Description about the blog' type="text" className='m-2 p-3 border border-black rounded-lg'/>
                 <button onClick={onSubmitHandler} className='p-4 m-5 bg-[#9ed5cb] text-[#445045] font-bold rounded-lg hover:text-[#9ed5cb] hover:bg-[#445045]'>Submit</button>
-                {loading && (<TailSpin className="flex justify-center align-middle h-96"/>)}
+                {loading && (<TailSpin/>)}
             </div> 
         </div>
       : <div>Please Login to add post</div>}
