@@ -13,10 +13,10 @@ const handleSignIn = async(details,navigate)=>{
         } else {
             toast.error(response.data.message);
         }
-        } catch (error) {
-            toast.error("An error occurred. Please try again later.");
-            console.error("Error:", error);
-        }
+    } catch (error) {
+        toast.error("An error occurred. Please try again later.");
+        console.error("Error:", error);
+    }
     
 }
 
