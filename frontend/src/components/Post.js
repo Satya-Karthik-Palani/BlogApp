@@ -39,17 +39,18 @@ const Post = () => {
                         <h1 className='font-bold'>{c.user_name}</h1><br></br>
                         <h1>{HumanizeDuration(Date.now() - new Date(c.createdAt), {
                             largest: 1,
-                            units: ['m'],
-                            round: true,  
-                            conjunction: ' and ',
+                            units: ['d', 'h', 'm'], 
+                            round: true,
+                            conjunction: ' and ', 
                             serialComma: false,
                             callback: function(string) {
                                 if(string === 'less than a minute') {
-                                    return 'now';
+                                    return 'now';  
                                 }
-
+                        
                                 return string;
-                        }})} ago</h1>
+                            } 
+                        })} ago</h1>
                     </div>
                     <h1>{c.description}</h1>
                 </div>
