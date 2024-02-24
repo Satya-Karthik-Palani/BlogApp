@@ -22,7 +22,7 @@ export default function Home({url}) {
             setPosts(json?.posts)
         }
         fetchPosts();
-    }, [url])
+    }, [url,posts])
 
     const onClickHandler=(p)=>{
         setCurrpost(p);
