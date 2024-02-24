@@ -22,7 +22,7 @@ export default function Home({url}) {
             setPosts(json?.posts)
         }
         fetchPosts();
-    }, [url,posts])
+    }, [url])
 
     const onClickHandler=(p)=>{
         setCurrpost(p);
@@ -30,15 +30,38 @@ export default function Home({url}) {
     }
     return (
         <>
-            {!Cookies.get('isUserLoggedIn') && <h1>Not logged In</h1>}
+            {!Cookies.get('isUserLoggedIn') && (<>
+                {url==="posts/me" ? <h1 className='text-3xl flex justify-center items-center w-screen h-[80vh] font-semibold'>Please Login to browse your blogs</h1> : (
+                    <div className="flex flex-wrap justify-center ">
+                        {posts ?
+                            posts.map((p) => (
+                                <div
+                                    key={p._id}
+                                    className="bg-gray-300 p-5 m-5 rounded-lg w-6/12 flex justify-between">
+                                    <div className={url==="posts/me" ? "w-3/4 flex cursor-pointer" : "w-full flex cursor-pointer"} onClick={()=>onClickHandler(p)}>
+                                        <img src={p.imageurl === null?DEFAULT_BLOG_IMAGE : `${CLOUDINARY_URL}${p.imageurl}.png` } className='w-40 h-40'/>
+                                        <div className='px-3'>
+                                            <h1 className={`font-bold ${url==="posts/me" ? 'flex justify-center pb-3':''}`}>{p.title}</h1>
+                                            <div className='line-clamp-6'>
+                                                <h3>{p.description}</h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            )) : 
+                            <h1>Add Your first post</h1>
+                        }
+                    </div>
+                )}
+            </>)}
             {Cookies.get('isUserLoggedIn') && (
                 <div className="flex flex-wrap justify-center ">
                     {posts ?
                         posts.map((p) => (
                             <div
                                 key={p._id}
-                                className="bg-gray-300 p-5 m-5 rounded-lg w-6/12 flex justify-between">
-                                <div className={url==="posts/me" ? "w-3/4 flex " : "w-full flex "} onClick={()=>onClickHandler(p)}>
+                                className="bg-gray-300 p-5 my-5 mx-1 rounded-lg w-6/12 flex justify-between">
+                                <div className={url==="posts/me" ? "w-3/4 flex cursor-pointer" : "w-full flex cursor-pointer"} onClick={()=>onClickHandler(p)}>
                                     <img src={p.imageurl === null?DEFAULT_BLOG_IMAGE : `${CLOUDINARY_URL}${p.imageurl}.png` } className='w-40 h-40'/>
                                     <div className='px-3'>
                                         <h1 className={`font-bold ${url==="posts/me" ? 'flex justify-center pb-3':''}`}>{p.title}</h1>
@@ -53,6 +76,7 @@ export default function Home({url}) {
                         )) : 
                         <h1>Add Your first post</h1>
                     }
+                    <Link to="/newpost" className='py-3 px-4 fixed bottom-10 text-bold text-4xl right-12 bg-[#9ed5cb] text-[#445045] font-bold rounded-full hover:text-[#9ed5cb] hover:bg-[#445045]'>+</Link>
                 </div>
             )}
         </>

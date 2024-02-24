@@ -4,7 +4,7 @@ const {authorizeUser} = require("../middlewares/auth");
 
 const router = express.Router();
 //All posts
-router.route("/posts").get(authorizeUser,getAllPosts);
+router.route("/posts").get(getAllPosts);
 router.route("/post/new").post(authorizeUser,createPost);
 router.route("/post/:id").put(authorizeUser,updatePost);
 router.route("/post/:id").delete(authorizeUser,deletePost);

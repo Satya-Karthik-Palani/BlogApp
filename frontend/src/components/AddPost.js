@@ -63,7 +63,7 @@ export default function AddPost() {
                             </Backdrop>)}
             </div> 
         </div>
-      : <div>Please Login to add post</div>}
+      : <h1 className='text-3xl flex justify-center items-center w-screen h-[80vh] font-semibold'>Please Register/Login to add new post</h1>}
     </>
   )
 }
