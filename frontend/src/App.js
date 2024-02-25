@@ -6,17 +6,38 @@ import AddPost from './components/AddPost';
 import EditPost from "./components/EditPost";
 import Signup from './components/Signup';
 import postContext from './utils/postContext';
-import { useState } from 'react';
+import { useEffect,useState } from 'react';
 import Post from './components/Post';
 
 function App() {
   const [post,setPost]  = useState([]);
   const [currpost,setCurrpost]  = useState([]);
+  const [theme,setTheme] = useState(null);
+
+  useEffect(()=>{
+    if(window.matchMedia('(prefers-color-scheme: dark)').matches){
+      setTheme('dark');
+    }
+    else{
+      setTheme('light');
+    }
+  },[])
+
+  useEffect(()=>{
+    if(theme==="dark"){
+      document.documentElement.classList.add("dark");
+    }else{
+      document.documentElement.classList.remove("dark");
+    }
+  },[theme])
+  const themeSwitchHandler = ()=>{
+    setTheme(theme==="dark" ? "light" : "dark");
+  }
   return (
-      <div className="App">
+      <div className="dark:bg-[#181a1b]">
         <postContext.Provider value={{post:post,setPost,currpost:currpost,setCurrpost}}>
           <Router>
-            <Header/>
+            <Header themeSwitchHandler={themeSwitchHandler}/>
             <Routes>
               <Route exact path="/" element={<Home url={"posts"} />}></Route>
               <Route exact path="/me" element={<Home url={"posts/me"}/>}></Route>

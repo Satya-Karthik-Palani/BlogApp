@@ -31,15 +31,15 @@ export default function Home({url}) {
     return (
         <>
             {!Cookies.get('isUserLoggedIn') && (<>
-                {url==="posts/me" ? <h1 className='text-3xl flex justify-center items-center w-screen h-[80vh] font-semibold'>Please Login to browse your blogs</h1> : (
-                    <div className="flex flex-wrap justify-center ">
+                {url==="posts/me" ? <h1 className='text-3xl flex justify-center items-center w-full h-[100vh] font-semibold text-black dark:text-white'>Please Login to browse your blogs</h1> : (
+                    <div className="flex flex-wrap justify-center min-h-screen">
                         {posts ?
                             posts.map((p) => (
                                 <div
                                     key={p._id}
-                                    className="bg-gray-300 p-5 m-5 rounded-lg w-6/12 flex justify-between">
+                                    className="bg-gray-300 p-5 m-5 rounded-lg w-6/12 flex justify-between text-black dark:bg-[#2f3335] h-60 dark:text-white">
                                     <div className={url==="posts/me" ? "w-3/4 flex cursor-pointer" : "w-full flex cursor-pointer"} onClick={()=>onClickHandler(p)}>
-                                        <img src={p.imageurl === null?DEFAULT_BLOG_IMAGE : `${CLOUDINARY_URL}${p.imageurl}.png` } className='w-40 h-40'/>
+                                        <img alt="image not found" src={p.imageurl === null?DEFAULT_BLOG_IMAGE : `${CLOUDINARY_URL}${p.imageurl}.png` } className='w-40 h-40'/>
                                         <div className='px-3'>
                                             <h1 className={`font-bold ${url==="posts/me" ? 'flex justify-center pb-3':''}`}>{p.title}</h1>
                                             <div className='line-clamp-6'>
@@ -55,14 +55,14 @@ export default function Home({url}) {
                 )}
             </>)}
             {Cookies.get('isUserLoggedIn') && (
-                <div className="flex flex-wrap justify-center ">
+                <div className="flex flex-wrap justify-center min-h-screen">
                     {posts ?
                         posts.map((p) => (
                             <div
                                 key={p._id}
-                                className="bg-gray-300 p-5 my-5 mx-1 rounded-lg w-6/12 flex justify-between">
-                                <div className={url==="posts/me" ? "w-3/4 flex cursor-pointer" : "w-full flex cursor-pointer"} onClick={()=>onClickHandler(p)}>
-                                    <img src={p.imageurl === null?DEFAULT_BLOG_IMAGE : `${CLOUDINARY_URL}${p.imageurl}.png` } className='w-40 h-40'/>
+                                className="bg-gray-300 p-5 my-5 mx-1 rounded-lg w-6/12 flex justify-between  text-black dark:bg-[#2f3335] h-60 dark:text-white">
+                                <div className={url==="posts/me" ? "w-3/4 flex cursor-pointer" : "w-full flex cursor-pointer "} onClick={()=>onClickHandler(p)}>
+                                    <img alt="image not found" src={p.imageurl === null?DEFAULT_BLOG_IMAGE : `${CLOUDINARY_URL}${p.imageurl}.png` } className='w-40 h-40'/>
                                     <div className='px-3'>
                                         <h1 className={`font-bold ${url==="posts/me" ? 'flex justify-center pb-3':''}`}>{p.title}</h1>
                                         <div className='line-clamp-6'>
